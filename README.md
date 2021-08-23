@@ -1,7 +1,7 @@
 # Deep Deducing on Tic Tac Toe
 
 This repository contains codes illustrating how deep deducing plays Tic Tac Toe.
-To reproduce the results in the paper, simply run Deducing_xxx.py
+To reproduce the results in the paper, simply run Deducing.py
 
 The codes are little bit ... awkward ... because we hand-coded it in a very primitive early stage.
 Please accept our apology.
@@ -33,7 +33,7 @@ Learning.py
 To use sets of trained weight matrices to start to play, run this command:
 
 ```
-Deducing_xxx.py              
+Deducing.py              
 ```
 
 
