@@ -3,10 +3,6 @@
 This repository contains codes illustrating how deep deducing plays Tic Tac Toe.
 To reproduce the results in the paper, simply run Deducing.py
 
-The codes are little bit ... awkward ... because we hand-coded it in a very primitive early stage.
-Please accept our apology.
-
-
 ## Requirements
 
 Packages requirements:
