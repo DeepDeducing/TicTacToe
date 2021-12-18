@@ -436,7 +436,7 @@ for j in range(foreseen_steps):
     value                     = -3.5
     beta                      = 0.1
     epoch_of_deducing         = 1000
-    drop_rate                 = 0.2
+    drop_rate                 = 0.
     Machine                   = Brain(network_size, beta, epoch_of_deducing, drop_rate)
 
     weight_lists       = list()
