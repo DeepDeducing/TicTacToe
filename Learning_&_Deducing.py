@@ -395,11 +395,13 @@ strategies_so_far   = [np.array([0, 1, 0,
                                  0, 0, 0,
                                  0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                        np.array([0, 0, 0,
-                                 1, 0, 0,
-                                 0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                       np.array([1, 0, 0,
                                  0, 0, 0,
-                                 0, 0, 0], dtype=float),  # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                                 0, 0, 1], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                       np.array([0, 0, 0,
+                                 0, 1, 0,
+                                 0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
                       ]
 matrix         = turning_strategies_into_matrix(np.array(strategies_so_far))
 print(matrix)
@@ -414,10 +416,10 @@ for j in range(foreseen_steps):
 
 
     from Brain_for_learning import *
-    network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 9 ])
+    network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 100, 9 ])
     slope                     = 25                                    # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     alpha                     = 0.00001                               # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    epoch_of_learning         = 100  * math.factorial(foreseen_steps) # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    epoch_of_learning         = 200000                               # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     drop_rate                 = 0.2                                   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     momentum_rate             = 0.9                                   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -426,11 +428,6 @@ for j in range(foreseen_steps):
     Machine_03                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_04                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_05                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
-    Machine_06                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
-    Machine_07                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
-    Machine_08                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
-    Machine_09                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
-    Machine_00                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
 
 
 
@@ -441,47 +438,27 @@ for j in range(foreseen_steps):
         p03 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_03))
         p04 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_04))
         p05 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_05))
-        p06 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_06))
-        p07 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_07))
-        p08 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_08))
-        p09 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_09))
-        p00 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_00))
         p01.start()
         p02.start()
         p03.start()
         p04.start()
         p05.start()
-        p06.start()
-        p07.start()
-        p08.start()
-        p09.start()
-        p00.start()
         p01.terminate()
         p02.terminate()
         p03.terminate()
         p04.terminate()
         p05.terminate()
-        p06.terminate()
-        p07.terminate()
-        p08.terminate()
-        p09.terminate()
-        p00.terminate()
         p01.join()
         p02.join()
         p03.join()
         p04.join()
         p05.join()
-        p06.join()
-        p07.join()
-        p08.join()
-        p09.join()
-        p00.join()
 
 
 
 
     from Brain_for_deducing import *
-    network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 9])
+    network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 100, 9])
     value                     = -3.5
     beta                      = 0.1
     epoch_of_deducing         = 1500
@@ -500,16 +477,6 @@ for j in range(foreseen_steps):
     slope_lists.append (Machine_04.slope_list )
     weight_lists.append(Machine_05.weight_list)
     slope_lists.append (Machine_05.slope_list )
-    weight_lists.append(Machine_06.weight_list)
-    slope_lists.append (Machine_06.slope_list )
-    weight_lists.append(Machine_07.weight_list)
-    slope_lists.append (Machine_07.slope_list )
-    weight_lists.append(Machine_07.weight_list)
-    slope_lists.append (Machine_07.slope_list )
-    weight_lists.append(Machine_09.weight_list)
-    slope_lists.append (Machine_09.slope_list )
-    weight_lists.append(Machine_00.weight_list)
-    slope_lists.append (Machine_00.slope_list )
 
 
 
