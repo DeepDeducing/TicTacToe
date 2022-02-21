@@ -1,4 +1,5 @@
 import numpy as np
+import math
 import scipy as sp
 import copy
 from multiprocessing    import Process
@@ -381,12 +382,13 @@ def generate_from(matrix, foreseen_steps, midterm_incentive = 0, samples_selecte
 
 
 
-strategies_so_far   = [np.array([0, 0, 0,
+strategies_so_far   = [np.array([0, 1, 0,
                                  0, 0, 0,
-                                 0, 1, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                       np.array([0, 0, 0,
-                                 0, 0, 1,
                                  0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+                       np.array([0, 0, 0,
+                                 1, 0, 0,
+                                 0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
                       ]
 matrix         = turning_strategies_into_matrix(np.array(strategies_so_far))
 print(matrix)
@@ -404,7 +406,7 @@ for j in range(foreseen_steps):
     network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 9 ])
     slope                     = 25
     alpha                     = 0.00001
-    epoch_of_learning         = 150000
+    epoch_of_learning         = 10 * math.factorial(foreseen_steps)
     drop_rate                 = 0.2
     momentum_rate             = 0.9
 
@@ -435,7 +437,7 @@ for j in range(foreseen_steps):
     network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 9])
     value                     = -3.5
     beta                      = 0.1
-    epoch_of_deducing         = 1000
+    epoch_of_deducing         = 1500
     drop_rate                 = 0.75
     Machine                   = Brain(network_size, beta, epoch_of_deducing, drop_rate)
 
@@ -520,6 +522,7 @@ for j in range(foreseen_steps):
 
 
     matrix = turning_strategy_into_board(Machine.activator(player_movements_value[0, :9]), matrix)
+    print("-------------------")
     print(matrix)
     foreseen_steps = counting_remaining_steps(matrix)
 
