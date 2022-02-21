@@ -397,10 +397,6 @@ strategies_so_far   = [np.array([0, 1, 0,
                        np.array([0, 0, 0,
                                  0, 0, 0,
                                  0, 0, 1], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-                       np.array([0, 0, 0,
-                                 0, 1, 0,
-                                 0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
 
                       ]
 matrix         = turning_strategies_into_matrix(np.array(strategies_so_far))
@@ -549,12 +545,6 @@ for j in range(foreseen_steps):
     print("-------------------")
     print(matrix)
     foreseen_steps = counting_remaining_steps(matrix)
-
-
-
-
-
-
 
 
 
