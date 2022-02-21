@@ -375,6 +375,15 @@ def generate_from(matrix, foreseen_steps, midterm_incentive = 0, samples_selecte
     return np.array(X), np.array(Y)
 
 
+def parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine):
+
+    for i in range(epoch_of_learning):
+        X, Y                                = generate_from(matrix, foreseen_steps)
+        input                               = np.atleast_2d( np.zeros(9 + 9 * foreseen_steps) )
+        input[:, : 9 + 9 * X.shape[0] ]     = np.atleast_2d(   np.concatenate((   matrix.flatten() * 0.5, X.flatten()   ))     )
+        output                              = Y
+        Machine.learn_batch(input, output)
+
 
 
 "-----------------------------------------------------------------------------------------------"
@@ -388,7 +397,9 @@ strategies_so_far   = [np.array([0, 1, 0,
                        np.array([0, 0, 0,
                                  1, 0, 0,
                                  0, 0, 0], dtype=float),   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+                       np.array([1, 0, 0,
+                                 0, 0, 0,
+                                 0, 0, 0], dtype=float),  # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
                       ]
 matrix         = turning_strategies_into_matrix(np.array(strategies_so_far))
 print(matrix)
@@ -404,31 +415,67 @@ for j in range(foreseen_steps):
 
     from Brain_for_learning import *
     network_size              = np.array([ 9 + 9 * foreseen_steps, 100, 100, 9 ])
-    slope                     = 25
-    alpha                     = 0.00001
-    epoch_of_learning         = 10 * math.factorial(foreseen_steps)
-    drop_rate                 = 0.2
-    momentum_rate             = 0.9
+    slope                     = 25                                    # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    alpha                     = 0.00001                               # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    epoch_of_learning         = 100  * math.factorial(foreseen_steps) # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    drop_rate                 = 0.2                                   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    momentum_rate             = 0.9                                   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     Machine_01                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_02                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_03                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_04                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
     Machine_05                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
+    Machine_06                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
+    Machine_07                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
+    Machine_08                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
+    Machine_09                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
+    Machine_00                = Brain(network_size, slope, alpha, epoch_of_learning, drop_rate, momentum_rate)
 
 
 
 
-    for i in range(epoch_of_learning):
-        X, Y                                = generate_from(matrix, foreseen_steps)
-        input                               = np.atleast_2d( np.zeros(9 + 9 * foreseen_steps) )
-        input[:, : 9 + 9 * X.shape[0] ]     = np.atleast_2d(   np.concatenate((   matrix.flatten() * 0.5, X.flatten()   ))     )
-        output                              = Y
-        Machine_01.learn_batch(input, output)
-        Machine_02.learn_batch(input, output)
-        Machine_03.learn_batch(input, output)
-        Machine_04.learn_batch(input, output)
-        Machine_05.learn_batch(input, output)
+    if __name__ == '__main__':
+        p01 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_01))
+        p02 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_02))
+        p03 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_03))
+        p04 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_04))
+        p05 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_05))
+        p06 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_06))
+        p07 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_07))
+        p08 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_08))
+        p09 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_09))
+        p00 = Process(target=parrelism(epoch_of_learning, generate_from, matrix, foreseen_steps, Machine_00))
+        p01.start()
+        p02.start()
+        p03.start()
+        p04.start()
+        p05.start()
+        p06.start()
+        p07.start()
+        p08.start()
+        p09.start()
+        p00.start()
+        p01.terminate()
+        p02.terminate()
+        p03.terminate()
+        p04.terminate()
+        p05.terminate()
+        p06.terminate()
+        p07.terminate()
+        p08.terminate()
+        p09.terminate()
+        p00.terminate()
+        p01.join()
+        p02.join()
+        p03.join()
+        p04.join()
+        p05.join()
+        p06.join()
+        p07.join()
+        p08.join()
+        p09.join()
+        p00.join()
 
 
 
@@ -453,6 +500,16 @@ for j in range(foreseen_steps):
     slope_lists.append (Machine_04.slope_list )
     weight_lists.append(Machine_05.weight_list)
     slope_lists.append (Machine_05.slope_list )
+    weight_lists.append(Machine_06.weight_list)
+    slope_lists.append (Machine_06.slope_list )
+    weight_lists.append(Machine_07.weight_list)
+    slope_lists.append (Machine_07.slope_list )
+    weight_lists.append(Machine_07.weight_list)
+    slope_lists.append (Machine_07.slope_list )
+    weight_lists.append(Machine_09.weight_list)
+    slope_lists.append (Machine_09.slope_list )
+    weight_lists.append(Machine_00.weight_list)
+    slope_lists.append (Machine_00.slope_list )
 
 
 
